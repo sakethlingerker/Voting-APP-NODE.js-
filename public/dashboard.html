@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - SecureVote</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="bg-animation"></div>
+
+    <header>
+        <div class="logo">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 12 2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
+            SecureVote
+        </div>
+        <button id="logout-btn" class="btn btn-secondary" style="width: auto; padding: 0.5rem 1rem;">Logout</button>
+    </header>
+
+    <div class="container">
+        <div class="profile-section">
+            <div>
+                <h2>Welcome, <span id="user-name">Voter</span></h2>
+                <p style="margin-bottom:0;" id="user-aadhar">Aadhar: ••••••••••••</p>
+            </div>
+            <div>
+                <span id="vote-status" class="badge">Checking status...</span>
+            </div>
+        </div>
+
+        <div id="alert-message" class="alert"></div>
+
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+            <h3>Election Candidates</h3>
+            <button id="refresh-btn" class="btn btn-secondary" style="width: auto; padding: 0.5rem 1rem;">Refresh</button>
+        </div>
+
+        <div id="loading" class="text-center">Loading candidates...</div>
+
+        <div id="candidates-grid" class="grid hidden">
+            <!-- Candidates will be populated here -->
+        </div>
+
+        <!-- Live Vote Counts (visible after voting) -->
+        <div id="results-section" class="glass-card mt-8 hidden" style="max-width: 100%;">
+            <h3>Live Results</h3>
+            <table id="results-table">
+                <thead>
+                    <tr>
+                        <th>Party</th>
+                        <th>Votes</th>
+                    </tr>
+                </thead>
+                <tbody id="results-body">
+                    <!-- Results populated here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="/js/dashboard.js"></script>
+</body>
+</html>

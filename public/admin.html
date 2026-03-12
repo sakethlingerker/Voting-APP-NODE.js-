@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - SecureVote</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="bg-animation"></div>
+
+    <header>
+        <div class="logo">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+            Admin Panel
+        </div>
+        <button id="logout-btn" class="btn btn-secondary" style="width: auto; padding: 0.5rem 1rem;">Logout</button>
+    </header>
+
+    <div class="container">
+        <div class="profile-section" style="background: rgba(244, 67, 54, 0.1); border: 1px solid rgba(244, 67, 54, 0.3);">
+            <div>
+                <h2 style="color: #ff8a80;">Administrator Mode</h2>
+                <p style="margin-bottom:0;" id="admin-name">Logged in as: Admin</p>
+            </div>
+            <div>
+                <span class="badge" style="background: #ff8a80; color: #121212;">Full Access</span>
+            </div>
+        </div>
+
+        <div id="alert-message" class="alert"></div>
+
+        <div class="grid" style="grid-template-columns: 1fr 2fr; gap: 2rem;">
+            
+            <!-- Add/Edit Candidate Form -->
+            <div class="glass-card" style="align-self: start;">
+                <h3 id="form-title">Add Candidate</h3>
+                
+                <form id="candidate-form">
+                    <input type="hidden" id="candidate-id">
+                    <div class="form-group">
+                        <label for="candidate-name">Candidate Name</label>
+                        <input type="text" id="candidate-name" placeholder="Name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="candidate-party">Party</label>
+                        <input type="text" id="candidate-party" placeholder="Party affiliation" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="candidate-age">Age</label>
+                        <input type="number" id="candidate-age" placeholder="Age" min="25" required>
+                    </div>
+                    
+                    <button type="submit" id="submit-btn" class="btn btn-secondary" style="margin-top: 1rem; color: var(--text);">Add Candidate</button>
+                    <button type="button" id="cancel-btn" class="btn hidden" style="margin-top: 0.5rem; background: transparent; border: 1px solid var(--glass-border);">Cancel Edit</button>
+                </form>
+            </div>
+
+            <!-- Manage Candidates Table -->
+            <div class="glass-card" style="max-width: 100%;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                    <h3>Manage Candidates</h3>
+                    <button id="refresh-btn" class="btn btn-secondary" style="width: auto; padding: 0.4rem 0.8rem; font-size: 0.8rem;">Refresh</button>
+                </div>
+                
+                <div id="loading" class="text-center">Loading candidates...</div>
+
+                <div style="overflow-x: auto;">
+                    <table id="candidates-table" class="hidden">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Party</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="candidates-body">
+                            <!-- Items populated via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Live Vote Counts (Admin can see live stats) -->
+        <div id="results-section" class="glass-card mt-8 hidden" style="max-width: 100%;">
+            <h3>Live Election Results</h3>
+            <table id="results-table">
+                <thead>
+                    <tr>
+                        <th>Party</th>
+                        <th>Votes</th>
+                    </tr>
+                </thead>
+                <tbody id="results-body">
+                    <!-- Results populated here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="/js/admin.js"></script>
+</body>
+</html>
