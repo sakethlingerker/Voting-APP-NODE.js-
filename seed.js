@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 require('dotenv').config();
 
 // Connect to MongoDB
-mongoose.connect('mongodb://localhost:27017/voting')
+mongoose.connect(process.env.DB_URL || 'mongodb://localhost:27017/voting')
     .then(() => console.log('Connected to MongoDB'))
     .catch((err) => console.log('MongoDB connection error:', err));
 
@@ -37,6 +37,26 @@ async function seedData() {
                 console.log(`Inserted user: ${user.name}`);
             } else {
                 console.log(`User ${user.name} already exists.`);
+            }
+        }
+
+        console.log('Seeding Votes...');
+        const voters = await User.find({ role: 'voter', isVoted: false });
+        const dbCandidates = await Candidate.find();
+
+        if (dbCandidates.length > 0) {
+            for (let i = 0; i < voters.length && i < 5; i++) { // Let's seed 5 votes
+                const voter = voters[i];
+                const randomCandidate = dbCandidates[Math.floor(Math.random() * dbCandidates.length)];
+
+                randomCandidate.votes.push({ user: voter._id });
+                randomCandidate.voteCount++;
+                await randomCandidate.save();
+
+                voter.isVoted = true;
+                await voter.save();
+
+                console.log(`Voter ${voter.name} voted for ${randomCandidate.name}`);
             }
         }
 
